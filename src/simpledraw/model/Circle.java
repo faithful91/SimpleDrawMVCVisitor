@@ -10,9 +10,10 @@ import simpledraw.view.IShapeVisitor;
  **/
 
 public class Circle implements IShape {
-	private boolean iAmSelected = false;
         private Point myCenter;
 	private int myRadius;
+        private boolean isSelected = false;
+
 
 	/**
 	 * Construct a Circle
@@ -46,11 +47,11 @@ public class Circle implements IShape {
 	}
 
         public boolean isSelected() {
-            return iAmSelected;    
+            return isSelected;    
         }
 
         public void setSelected(boolean selected) {
-            iAmSelected = selected;
+            isSelected = selected;
 
         }
 

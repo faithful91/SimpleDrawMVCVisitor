@@ -12,9 +12,10 @@ import java.awt.Point;
 import simpledraw.view.IShapeVisitor;
 
 public class Line implements IShape {
-	private boolean iAmSelected = false;
         private Point myStart;
 	private Point myEnd;
+        private boolean isSelected = false;
+
 
 	/**
 	 * Construct a line
@@ -75,11 +76,11 @@ public class Line implements IShape {
 	}
 
     public boolean isSelected() {
-        return iAmSelected;
+        return isSelected;
     }
 
     public void setSelected(boolean selected) {
-        iAmSelected = selected;
+        isSelected = selected;
     }
 
     public void accept(IShapeVisitor v) {

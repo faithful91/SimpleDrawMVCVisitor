@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import simpledraw.model.Circle;
 import simpledraw.model.ModelDraw;
 import simpledraw.model.Line;
-import simpledraw.view.IDrawingView;
+import simpledraw.view.IView;
 import simpledraw.view.IShapeVisitor;
 
 /**
@@ -20,16 +20,16 @@ import simpledraw.view.IShapeVisitor;
  * @see simpledraw.DrawingTool
  */
 
-public class DrawingPanel extends JPanel implements IShapeVisitor, IDrawingView {
+public class DrawingPanel extends JPanel implements IShapeVisitor, IView {
     
     Graphics2D g;
     private DrawingTool myCurrentTool;
     ModelDraw myDrawModel;
     
 
-    public DrawingPanel(ModelDraw draw) {
+    public DrawingPanel(ModelDraw modelDraw) {
         super();
-        myDrawModel = draw;
+        myDrawModel = modelDraw;
         setBackground(java.awt.Color.white);
         myCurrentTool = new SelectionTool(this, myDrawModel);
         activate(myCurrentTool);
@@ -55,7 +55,6 @@ public class DrawingPanel extends JPanel implements IShapeVisitor, IDrawingView 
         myDrawModel.clearSelection();
     }
 
-    @Override
     public void paintComponent(Graphics g) {
         this.g = (Graphics2D) g;
         super.paintComponent(g);
@@ -78,12 +77,6 @@ public class DrawingPanel extends JPanel implements IShapeVisitor, IDrawingView 
         addMouseMotionListener(t);
     }
 
-    //Comportement View de DrawingPanel
-    public void notify(ModelDraw model) {
-        repaint();
-    }
-
-    //Comportement Visitor de DrawingPanel
     public void visit(Line line) {
         g.setColor(
                 line.isSelected()
@@ -101,5 +94,9 @@ public class DrawingPanel extends JPanel implements IShapeVisitor, IDrawingView 
                 cercle.getMyCenter().y - cercle.getMyRadius(),
                 cercle.getMyRadius() * 2,
                 cercle.getMyRadius() * 2);
+    }
+    
+    public void notify(ModelDraw model) {
+        repaint();
     }
 }
