@@ -9,7 +9,7 @@ package simpledraw.model;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import simpledraw.view.IShapeVisitor;
+import simpledraw.view.IVisitorShape;
 
 public class Line implements IShape {
         private Point myStart;
@@ -83,7 +83,7 @@ public class Line implements IShape {
         isSelected = selected;
     }
 
-    public void accept(IShapeVisitor v) {
+    public void accept(IVisitorShape v) {
         v.visit(this);
     }
      public Point getMyEnd() {

@@ -9,7 +9,7 @@ import simpledraw.model.Circle;
 import simpledraw.model.ModelDraw;
 import simpledraw.model.Line;
 import simpledraw.view.IView;
-import simpledraw.view.IShapeVisitor;
+import simpledraw.view.IVisitorShape;
 
 /**
  * A Panel that displays a Drawing, and maintains a current DrawingTool<BR>
@@ -20,7 +20,7 @@ import simpledraw.view.IShapeVisitor;
  * @see simpledraw.DrawingTool
  */
 
-public class DrawingPanel extends JPanel implements IShapeVisitor, IView {
+public class DrawingPanel extends JPanel implements IVisitorShape, IView {
     
     Graphics2D g;
     private DrawingTool myCurrentTool;

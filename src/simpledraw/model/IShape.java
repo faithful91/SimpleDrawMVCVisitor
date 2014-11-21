@@ -1,7 +1,7 @@
 package simpledraw.model;
 
 import java.awt.Point;
-import simpledraw.view.IShapeVisitor;
+import simpledraw.view.IVisitorShape;
 
 public interface IShape {
 
@@ -28,5 +28,5 @@ public interface IShape {
     public boolean isPickedBy(Point p);
 
    
-    public void accept(IShapeVisitor v);
+    public void accept(IVisitorShape v);
 }

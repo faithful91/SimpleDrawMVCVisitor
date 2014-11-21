@@ -5,9 +5,8 @@ import simpledraw.model.Line;
 
 
 
-public interface IShapeVisitor {
-
+public interface IVisitorShape 
+{
     public void visit(Line l);
-
     public void visit(Circle c);
 }

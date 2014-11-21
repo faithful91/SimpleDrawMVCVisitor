@@ -10,7 +10,7 @@ package simpledraw.model;
 import java.awt.Point;
 import java.util.*;
 import simpledraw.view.IView;
-import simpledraw.view.IShapeVisitor;
+import simpledraw.view.IVisitorShape;
 
 public class ModelDraw {
     
@@ -63,9 +63,9 @@ public class ModelDraw {
     }
 
    
-    public void addView(IView draw) {
-        ViewsDraw.add(draw);
-        draw.notify(this);
+    public void addView(IView viewDraw) {
+        ViewsDraw.add(viewDraw);
+        viewDraw.notify(this);
     }
 
    
@@ -75,7 +75,7 @@ public class ModelDraw {
     }
 
     
-    protected void notifyViews() {
+   void notifyViews() {
         if (null != ViewsDraw) {
             for (IView view : ViewsDraw) {
                 view.notify(this);
@@ -84,17 +84,17 @@ public class ModelDraw {
     }
 
     
-    public void removeView(IView draw) {
-        ViewsDraw.remove(draw);
+    public void removeView(IView ViewDraw) {
+        ViewsDraw.remove(ViewDraw);
     }
     
    
-    public void setSelected(IShape s, boolean selected) {
-        s.setSelected(selected);
+    public void setSelected(IShape s, boolean isfocus) {
+        s.setSelected(isfocus);
         notifyViews();
     }
     
-     public void acceptAll(IShapeVisitor v) {
+     public void acceptAll(IVisitorShape v) {
         for (IShape s : Form) {
             s.accept(v);
         }
