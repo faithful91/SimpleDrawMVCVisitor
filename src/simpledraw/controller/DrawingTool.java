@@ -1,4 +1,4 @@
-package simple.draw.mvc.visitor;
+package simpledraw.controller;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -6,19 +6,19 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import simpledraw.model.ModelDraw;
 
 /**
  * A Drawing tool in the drawing panel
  */
 
-public abstract class DrawingTool
-	implements KeyListener, MouseListener, MouseMotionListener {
+public abstract class DrawingTool implements KeyListener, MouseListener, MouseMotionListener {
 	DrawingPanel myPanel;
-        Drawing myDrawing;
+        ModelDraw myDrawModel;
 
-	DrawingTool(DrawingPanel panel) {
+	DrawingTool(DrawingPanel panel,ModelDraw drawing) {
 		myPanel = panel;
-                myDrawing = panel.myDrawing;
+                myDrawModel = drawing;
 	}
 
 	/**
@@ -46,7 +46,7 @@ public abstract class DrawingTool
 	}
 
 	public void mouseEntered(MouseEvent e) {
-		myPanel.requestFocus();
+            myPanel.requestFocus();
 	}
 
 	public void mouseExited(MouseEvent e) {

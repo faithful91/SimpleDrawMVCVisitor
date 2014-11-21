@@ -1,4 +1,4 @@
-package simple.draw.mvc.visitor;
+package simpledraw.model;
 
 /**
  * A Segement of a line, that extends between two points
@@ -9,10 +9,11 @@ package simple.draw.mvc.visitor;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import simpledraw.view.IShapeVisitor;
 
-public class Line
-	extends Shape {
-	private Point myStart;
+public class Line implements IShape {
+	private boolean iAmSelected = false;
+        private Point myStart;
 	private Point myEnd;
 
 	/**
@@ -72,4 +73,23 @@ public class Line
 		}
 		return (distance <= 2) && (lambda >= 0) && (lambda <= 1);
 	}
+
+    public boolean isSelected() {
+        return iAmSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        iAmSelected = selected;
+    }
+
+    public void accept(IShapeVisitor v) {
+        v.visit(this);
+    }
+     public Point getMyEnd() {
+        return myEnd;
+    }
+
+    public Point getMyStart() {
+        return myStart;
+    }
 }

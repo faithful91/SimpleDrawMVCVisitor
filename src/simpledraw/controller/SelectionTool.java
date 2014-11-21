@@ -1,11 +1,12 @@
-package simple.draw.mvc.visitor;
+package simpledraw.controller;
 
 import java.awt.Cursor;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import simpledraw.model.ModelDraw;
+import simpledraw.model.IShape;
 
 /**
  * The tool to select, move and delete Shapes in the Drawing
@@ -15,31 +16,30 @@ import java.awt.event.MouseEvent;
 
 public class SelectionTool
 	extends DrawingTool {
-	private Shape mySelectedShape = null;
+	private IShape mySelectedShape = null;
 	private Point myLastPoint;
 
-	public SelectionTool(DrawingPanel panel) {
-		super(panel);
+	public SelectionTool(DrawingPanel panel,ModelDraw drawing) {
+		super(panel,drawing);
 	}
 
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyChar() == KeyEvent.VK_DELETE) {
 			if (mySelectedShape != null) {
-				myDrawing.deleteShape(mySelectedShape);
-				myPanel.repaint();
+				myDrawModel.deleteShape(mySelectedShape);
 			}
 		}
 	}
 
 	public void mousePressed(MouseEvent e) {
-		Shape pickedShape = myDrawing.pickShapeAt(e.getPoint());
+		IShape pickedShape = myDrawModel.pickShapeAt(e.getPoint());
 		myLastPoint = e.getPoint();
 		if (mySelectedShape != null) {
-			mySelectedShape.setSelected(false);
+			myDrawModel.setSelected(mySelectedShape,false);
 		}
 		mySelectedShape = pickedShape;
 		if (mySelectedShape != null) {
-			mySelectedShape.setSelected(true);
+			myDrawModel.setSelected(mySelectedShape,true);
 			myPanel.setCursor(Cursor.getPredefinedCursor(Cursor.
 				MOVE_CURSOR));
 		}
@@ -51,7 +51,7 @@ public class SelectionTool
 	}
 
 	public void mouseMoved(MouseEvent e) {
-		Shape pickedShape = myPanel.myDrawing.pickShapeAt(e.getPoint());
+		IShape pickedShape = myDrawModel.pickShapeAt(e.getPoint());
 		if (pickedShape != null) {
 			myPanel.setCursor(Cursor.getPredefinedCursor(Cursor.
 				HAND_CURSOR));
@@ -62,7 +62,7 @@ public class SelectionTool
 
 	public void mouseDragged(MouseEvent e) {
 		if (mySelectedShape != null) {
-			mySelectedShape.translateBy(
+			myDrawModel.translate(mySelectedShape,
 				e.getX() - myLastPoint.x,
 				e.getY() - myLastPoint.y
 				);
